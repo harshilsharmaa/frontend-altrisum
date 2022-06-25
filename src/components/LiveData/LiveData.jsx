@@ -1,30 +1,44 @@
 import React,{useState, useEffect} from 'react'
 import io from 'socket.io-client'
-import axios from "axios"
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {useParams} from 'react-router-dom' 
+import { getLiveData } from '../../Actions/device';
 
+// const socket = io.connect('http://localhost:5000',{
+//   query:{
+//     auth: auth:user?user:null
+//   }
+// });
+const socket = io.connect('http://localhost:5000');
 
 const LiveData = () => {
 
+  const [temp, setTemp] = useState([]);
+  const [humidity, setHumidity] = useState([]);
+
+
   const user = useSelector(state => state.user);
+  const liveData = useSelector(state => state.liveData?.liveData?.data);
+    const {id} = useParams();
 
-  const socket = io.connect('http://localhost:5000',{
-    query:{
-      auth:user?user:null
-    }
-  });
-  
-    const [data, setData] = useState([]);
-    const [machineName, setMachineName] = useState([]);
-    const [temp, setTemp] = useState([]);
-    const [humidity, setHumidity] = useState([]);
+    useEffect(() => {
+      socket.auth = user?user:null;
+      socket.connect();
+    },[user])
 
+
+  const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(getLiveData(id));
+    },[dispatch,id]);
 
     useEffect(()=>{
         socket.on("data", ({data})=>{
           
             console.log(data);
-      
+            if(toString(data)===toString(liveData._id)){
+                dispatch(getLiveData(id));
+            }
         })
 
         socket.on("updateData", ({updateMachineData})=>{
@@ -42,23 +56,23 @@ const LiveData = () => {
     })
 
 
+    useEffect(()=>{
+      setTemp(liveData?.T.$numberDecimal);
+      setHumidity(liveData?.H.$numberDecimal);
+    },[liveData])
+
+
   return (
     <div>
-      <h2>Page Under Construction</h2>
-      <table>
-        <tr>
-          <th>Machine Name</th>
-          <th>Temprature</th>
-          <th>Humidity</th>
-        </tr>
-
-        <tr>
-          <td>{machineName}</td>
-          <td>{temp}</td>
-          <td>{humidity}</td>
-        </tr>
-
-      </table>
+      <h2>Live Data</h2>
+      <div>
+        {
+          liveData ? <div>
+            <h4>Temperature: {temp}</h4>
+            <h4>Humidity: {humidity}</h4>
+          </div>:null
+        }
+      </div>
     </div>
   )
 }

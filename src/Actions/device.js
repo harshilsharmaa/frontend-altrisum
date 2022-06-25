@@ -54,3 +54,28 @@ export const getDevices = ()=> async(dispatch)=>{
         })
     }
 }
+
+
+export const getLiveData = (id)=> async(dispatch)=>{
+    try {
+
+        dispatch({
+            type:"liveDataRequest"
+        })
+
+        const {data} = await axios.get(`/api/v1/device/getLiveData/${id}`);
+
+
+        dispatch({
+            type:"liveDataSuccess",
+            payload:data
+        })
+
+
+    } catch (error) {
+        dispatch({
+            type:"liveDataFailure",
+            payload:error.response.data.message
+        })
+    }
+}

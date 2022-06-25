@@ -7,7 +7,8 @@ const store = configureStore({
     reducer:{
         user: userReducer,
         device: deviceReducer,
-        allDevices: deviceReducer
+        allDevices: deviceReducer,
+        liveData: deviceReducer
     },
 })
 

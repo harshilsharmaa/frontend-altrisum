@@ -32,4 +32,17 @@ export const deviceReducer = createReducer(initialState,{
         state.error = action.payload;
     },
 
+    liveDataRequest: (state)=>{
+        state.loading = true;
+    },
+    liveDataSuccess: (state, action)=>{
+        state.loading = false;
+        state.liveData = action.payload;
+        state.isAuthenticate = true;
+    },
+    liveDataFailure: (state, action)=>{
+        state.loading = false;
+        state.error = action.payload;
+    },
+
 });

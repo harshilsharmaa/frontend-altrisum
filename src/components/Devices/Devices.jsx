@@ -28,7 +28,7 @@ const Devices = () => {
 
             {
                 allDevices?.data.length > 0 ? allDevices.data.map(device => (
-                    <Link to={`/device/${device._id}`}><DeviceCard device={device}/></Link>
+                    <Link to={`/device/${device.deviceId}`}><DeviceCard device={device}/></Link>
                 )):<h2>No Device To show</h2>
             }
             </div>
