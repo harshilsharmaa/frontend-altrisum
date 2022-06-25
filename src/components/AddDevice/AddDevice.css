@@ -1,0 +1,20 @@
+.addDevice form{
+    display: flex;
+    flex-direction: column;
+}
+
+.addDevice form input{
+    margin: 10px;
+}
+
+.addDevice form button{
+    margin: 10px;
+    width: 120px;
+    height: 40px;
+    background-color: crimson;
+    cursor: pointer;
+}
+
+.loading{
+    color: red;
+}

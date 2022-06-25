@@ -1,0 +1,12 @@
+.home a{
+    color: #fff;
+    text-decoration: none;
+    background-color: crimson;
+    height: 20px;
+    padding: 9px;
+    margin: 10px;
+}
+
+.home a:hover{
+    background-color: rgba(220, 20, 60, 0.753);
+}
