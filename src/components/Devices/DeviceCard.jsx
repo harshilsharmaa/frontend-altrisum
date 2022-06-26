@@ -2,7 +2,6 @@ import React from 'react'
 import './DeviceCard.css'
 
 const DeviceCard = ({device}) => {
-    console.log(device);
   return (
     <div className='deviceCard'>
         <h3>{device.name}</h3>

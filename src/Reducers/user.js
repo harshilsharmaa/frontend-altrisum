@@ -61,3 +61,18 @@ export const userReducer = createReducer(initialState,{
         state.isAuthenticate = true;
     },
 });
+
+export const forgotPasswordReducer = createReducer(initialState,{
+    ResetPasswordRequest: (state)=>{
+        state.loading = true;
+    },
+    ResetPasswordSuccess: (state, action)=>{
+        state.loading = false;
+        state.message = action.payload;
+    },
+    ResetPasswordFailure: (state, action)=>{
+        state.loading = false;
+        state.error = action.payload;
+    }
+
+})
